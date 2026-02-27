@@ -23,3 +23,10 @@ ckpts
 
 resize_demo_imgs.py
 img_dir_to_video.py
+venv
+.venv
+pi3.egg-info
+.idea
+.sisyphus
+*.md
+uv.lock
