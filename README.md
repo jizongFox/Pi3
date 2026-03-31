@@ -128,6 +128,44 @@ pip install -r requirements_demo.txt
 python demo_gradio.py
 ```
 
+### 4\. Docker Deployment (Comprehensive Outputs)
+
+This repo includes a Docker deployment flow that accepts host input/output paths and writes comprehensive outputs plus a fused PLY.
+
+Build + run in one command (Python launcher):
+
+```bash
+python run_pi3_docker.py \
+  --image-folder examples/house \
+  --output-dir outputs/pi3_docker_test
+```
+
+Direct Docker usage:
+
+```bash
+docker build -t pi3:cuda12.8 .
+
+docker run --rm --gpus all \
+  -v "$(pwd)/examples/house:/input:ro" \
+  -v "$(pwd)/outputs/pi3_docker_test:/output" \
+  -v "$HOME/.cache/huggingface:/root/.cache/huggingface" \
+  -v "$HOME/.cache/torch:/root/.cache/torch" \
+  pi3:cuda12.8 \
+  --image_folder /input \
+  --output_dir /output
+```
+
+Output layout:
+
+- `reconstruction.ply`
+- `depth_npy/view_*.npy`
+- `depth_png/view_*.png`
+- `intrinsics/view_*.npy`
+- `extrinsics/view_*.npy`
+- `images/view_*.png`
+- `mask_npy/view_*.npy`
+- `metadata.json`
+
 
 ## 🛠️ Detailed Usage
 
